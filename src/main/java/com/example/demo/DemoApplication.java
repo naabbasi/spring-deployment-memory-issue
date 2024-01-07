@@ -1,13 +1,31 @@
 package com.example.demo;
 
+import com.example.demo.util.LogUtils;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class DemoApplication {
+public class DemoApplication extends SpringBootServletInitializer {
+	@Bean
+	CommandLineRunner init(LogUtils logUtils) {
+		return args -> {
+			logUtils.log("This is a test message");
+			logUtils.log("This is a test message with params: %s", "Value");
+        };
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
+		super.setRegisterErrorPageFilter(false);
+		return springApplicationBuilder.sources(DemoApplication.class);//.web(WebApplicationType.NONE);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-
 }
