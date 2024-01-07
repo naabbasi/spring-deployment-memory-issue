@@ -38,3 +38,9 @@
     <li>Added springboot starter data jpa and postgresql dependencies</li>
     <li>Releasing all resources with/without entities and repository</li>
 </ul>
+
+#### version 0.0.4
+<ul>
+    <li>Observation: when using log4j-web dependency dont call loggermanager shutdown or logger context stop methods, calling these methods will cause lock log4j2-config thread</li>
+    <li>Releasing all resources, perform GC with some delay (2x to 3x)</li>
+</ul>

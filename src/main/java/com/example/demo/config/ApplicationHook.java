@@ -1,13 +1,14 @@
 package com.example.demo.config;
 
-import com.example.demo.utils.LogUtils;
+import java.util.Objects;
+
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Objects;
+import com.example.demo.utils.LogUtils;
 
 @Configuration
 public class ApplicationHook implements ApplicationListener<ContextClosedEvent> {
@@ -25,7 +26,6 @@ public class ApplicationHook implements ApplicationListener<ContextClosedEvent> 
         try {
             ContextLoader contextLoader = new ContextLoader();
             contextLoader.closeWebApplicationContext(Objects.requireNonNull(this.webApplicationContext.getServletContext()));
-            System.gc();
         } catch (Exception e) {
             this.logUtils.log("Exception occurred: {}", e.getMessage());
         }
