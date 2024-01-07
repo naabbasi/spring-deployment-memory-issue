@@ -32,3 +32,8 @@
 </code>
 
 <p>Application objects are being released either explicitly destroy context via application event lister or not</p>
+
+#### version 0.0.3
+<ul>
+    <li>Added springboot starter data jpa and postgresql dependencies</li>
+</ul>
