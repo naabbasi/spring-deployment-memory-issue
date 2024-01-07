@@ -9,6 +9,14 @@
 <ul>
     <li>Excluded spring default logging</li>
     <li>Destroy context by calling </li>
+    <pre>
+        try {
+            ContextLoader contextLoader = new ContextLoader();
+            contextLoader.closeWebApplicationContext(Objects.requireNonNull(this.webApplicationContext.getServletContext()));
+        } catch (Exception e) {
+            this.logUtils.log("Exception occurred: {}", e.getMessage());
+        }
+    </pre>
 </ul>
 <code>
     <dependency>
@@ -22,3 +30,5 @@
         </exclusions>
     </dependency>
 </code>
+
+<p>Application objects are being released either explicitly destroy context via application event lister or not</p>
