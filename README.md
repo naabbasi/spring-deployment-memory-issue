@@ -1,5 +1,10 @@
 # spring-deployment-memory-issue
 
+#### version 0.0.1
+<ul>
+    <li>Spring boot with starter and web dependencies</li>
+</ul>
+
 #### version 0.0.2
 <ul>
     <li>Excluded spring default logging</li>

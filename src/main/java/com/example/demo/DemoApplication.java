@@ -1,9 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.util.LogUtils;
+import com.example.demo.utils.LogUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -16,7 +15,7 @@ public class DemoApplication extends SpringBootServletInitializer {
 		return args -> {
 			logUtils.log("This is a test message");
 			logUtils.log("This is a test message with params: %s", "Value");
-        };
+		};
 	}
 
 	@Override
@@ -28,4 +27,5 @@ public class DemoApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
+
 }
