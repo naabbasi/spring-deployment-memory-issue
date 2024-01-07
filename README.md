@@ -36,4 +36,5 @@
 #### version 0.0.3
 <ul>
     <li>Added springboot starter data jpa and postgresql dependencies</li>
+    <li>Releasing all resources with/without entities and repository</li>
 </ul>

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class LogUtils {
     public void log(String message, Object... params) {
         if(params != null && params.length > 0) {
-            System.out.printf(message, params);
+            System.out.printf(message + "\n", params);
             return;
         }
 

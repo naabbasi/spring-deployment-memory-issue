@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.services.CustomerService;
 import com.example.demo.utils.LogUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,10 +12,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class DemoApplication extends SpringBootServletInitializer {
 	@Bean
-	CommandLineRunner init(LogUtils logUtils) {
+	CommandLineRunner init(LogUtils logUtils, CustomerService customerService) {
 		return args -> {
 			logUtils.log("This is a test message");
 			logUtils.log("This is a test message with params: %s", "Value");
+			customerService.all();
+			customerService.getCustomerById(1L);
 		};
 	}
 

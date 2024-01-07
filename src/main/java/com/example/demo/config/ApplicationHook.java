@@ -25,6 +25,7 @@ public class ApplicationHook implements ApplicationListener<ContextClosedEvent> 
         try {
             ContextLoader contextLoader = new ContextLoader();
             contextLoader.closeWebApplicationContext(Objects.requireNonNull(this.webApplicationContext.getServletContext()));
+            System.gc();
         } catch (Exception e) {
             this.logUtils.log("Exception occurred: {}", e.getMessage());
         }
