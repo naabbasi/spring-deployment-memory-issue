@@ -15,7 +15,7 @@ public class DemoApplication extends SpringBootServletInitializer {
 	CommandLineRunner init(LogUtils logUtils, CustomerService customerService) {
 		return args -> {
 			logUtils.log("This is a test message");
-			logUtils.log("This is a test message with params: %s", "Value");
+			logUtils.log("This is a test message with params: {}", "Value");
 			customerService.all();
 			customerService.getCustomerById(1L);
 		};

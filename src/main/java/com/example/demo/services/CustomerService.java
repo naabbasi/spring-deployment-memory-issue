@@ -1,12 +1,11 @@
 package com.example.demo.services;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entities.Customer;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.utils.LogUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -24,7 +23,7 @@ public class CustomerService {
     }
 
     public Optional<Customer> getCustomerById(Long customerId) {
-        this.logUtils.log("Fetching customer by id: %d", customerId);
+        this.logUtils.log("Fetching customer by id: {}", customerId);
         return this.customerRepository.findById(customerId);
     }
 }
