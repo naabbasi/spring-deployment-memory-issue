@@ -36,10 +36,10 @@
             <AppenderRef ref="Console" level="INFO" />
         </AsyncLogger>
 
-        <Root level="INFO" includeLocation="true">
+        <AsyncRoot level="INFO" includeLocation="true">
             <AppenderRef ref="Console" level="INFO" />
             <AppenderRef ref="RollingFileAppender" level="DEBUG" />
-        </Root>
+        </AsyncRoot>
     </Loggers>
 
 </Configuration>
