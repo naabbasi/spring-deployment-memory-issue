@@ -1,9 +1,6 @@
 package com.example.demo.config;
 
 import com.example.demo.utils.LogUtils;
-import io.netty.util.concurrent.FastThreadLocal;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -22,8 +19,8 @@ public class ApplicationContext implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         logUtils.log("ApplicationContext contextDestroyed called");
         ServletContextListener.super.contextDestroyed(sce);
-        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
+        /*WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
         FastThreadLocal.removeAll();
-        FastThreadLocal.destroy();
+        FastThreadLocal.destroy();*/
     }
 }

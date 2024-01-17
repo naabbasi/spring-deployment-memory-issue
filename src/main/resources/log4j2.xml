@@ -15,7 +15,9 @@
         <RollingFile name="RollingFileAppender" fileName="${logpath-location}/${logfile-name}"
             immediateFlush="false" append="false"
             filePattern="${archive}/${logfile-name}.%d{yyyy-MM-dd-HH}.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} [%t] %-5p %c.%M ():%L %X - %m%n" />
+            <PatternLayout>
+                <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} {lvl:%level} {tid:%threadId} {uid:%X{userId}} {cls:%class} {mtd:%method} %throwable{10} %n</pattern>
+            </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="1 KB"/>
             </Policies>
