@@ -4,6 +4,7 @@ import com.example.demo.cache.ApplicationPropertiesCache;
 import com.example.demo.config.ApplicationProperties;
 import com.example.demo.services.CustomerService;
 import com.example.demo.utils.LogUtils;
+import org.apache.logging.log4j.util.PropertiesUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+//@ComponentScan(basePackages = {"com.example.demo"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {LogUtils.class}))
 public class DemoApplication extends SpringBootServletInitializer {
 	@Bean
 	CommandLineRunner init(ApplicationProperties applicationProperties, LogUtils logUtils,
@@ -28,6 +30,9 @@ public class DemoApplication extends SpringBootServletInitializer {
 			for(Map.Entry<String, ApplicationPropertiesBo> applicationPropertyEntry : applicationPropertiesCacheMap.entrySet()){
 				logUtils.log("Key: {}, Value: {}", applicationPropertyEntry.getKey(), applicationPropertyEntry.getValue());
 			}*/
+			PropertiesUtil properties = PropertiesUtil.getProperties();
+			logUtils.log("AsyncLogger.RingBufferSize size is: {}", properties.getStringProperty("AsyncLogger.RingBufferSize"));
+			logUtils.log("AsyncLoggerConfig.RingBufferSize size is: {}", properties.getStringProperty("AsyncLoggerConfig.RingBufferSize"));
 		};
 	}
 

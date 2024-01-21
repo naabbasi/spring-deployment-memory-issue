@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
+<Configuration status="trace">
     <Properties>
-        <Property name="logpath-location">./app/logs</Property>
+        <Property name="logpath-location">./app/spring-deployment-memory-issue/logs</Property>
         <Property name="logfile-name">db_service.log</Property>
         <Property name="archive">${logpath-location}/archive/dbservice</Property>
         <Property name="interval">10</Property>
@@ -38,9 +38,9 @@
             <AppenderRef ref="Console" level="INFO" />
         </AsyncLogger>
 
-        <AsyncRoot level="INFO" includeLocation="true">
-            <AppenderRef ref="Console" level="INFO" />
-            <AppenderRef ref="RollingFileAppender" level="DEBUG" />
+        <AsyncRoot level="trace" includeLocation="true">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFileAppender" />
         </AsyncRoot>
     </Loggers>
 
