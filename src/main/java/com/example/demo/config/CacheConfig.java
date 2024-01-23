@@ -1,20 +1,13 @@
 package com.example.demo.config;
 
 import com.example.demo.utils.LogUtils;
-import io.lettuce.core.ClientOptions;
-import io.lettuce.core.protocol.ProtocolVersion;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -46,7 +39,7 @@ public class CacheConfig implements DisposableBean {
         return redisTemplate;
     }
 
-    @Bean
+    /*@Bean
     public LettuceClientConfigurationBuilderCustomizer lettuceClientConfiguration() {
         return clientConfigurationBuilder -> {
             LettucePoolingClientConfiguration lettucePoolingClientConfiguration = (LettucePoolingClientConfiguration) clientConfigurationBuilder;
@@ -67,10 +60,11 @@ public class CacheConfig implements DisposableBean {
     @Bean
     public LettuceConnectionFactory connectionFactory() {
         return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
-    }
+    }*/
 
     /**
      * TODO:
+     *
      * @return
      */
     /*@Bean
@@ -82,7 +76,6 @@ public class CacheConfig implements DisposableBean {
                 .transactionAware()
                 .build();
     }*/
-
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
@@ -102,7 +95,7 @@ public class CacheConfig implements DisposableBean {
         return RedisCacheConfiguration.defaultCacheConfig()
                 .disableCachingNullValues()
                 .entryTtl(Duration.ofDays(7))
-                .prefixCacheNameWith(this.applicationProperties.getName()+"_"+this.applicationProperties.getVersion()+"_");
+                .prefixCacheNameWith(this.applicationProperties.getName() + "_" + this.applicationProperties.getVersion() + "_");
     }
 
     @Override

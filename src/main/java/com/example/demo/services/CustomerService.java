@@ -22,7 +22,7 @@ public class CustomerService {
         return this.customerRepository.findAll();
     }
 
-    public Optional<Customer> getCustomerById(Long customerId) {
+    public Customer getCustomerById(Long customerId) {
         this.logUtils.log("Fetching customer by id: {}", customerId);
         return this.customerRepository.findById(customerId);
     }
