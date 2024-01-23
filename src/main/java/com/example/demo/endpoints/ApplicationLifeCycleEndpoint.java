@@ -37,9 +37,9 @@ public class ApplicationLifeCycleEndpoint {
     @GetMapping(path = "/customer/{customerId}")
     public ResponseEntity<?> customerById(@PathVariable("customerId") Long customerId) {
         logUtils.log("Fetching customer by id: {}", customerId);
-        Optional<Customer> customer = this.customerService.getCustomerById(customerId);
-        if(customer.isPresent()){
-            return ResponseEntity.ok(customer.get());
+        Customer customer = this.customerService.getCustomerById(customerId);
+        if(customer != null ){
+            return ResponseEntity.ok(customer);
         }
 
         return ResponseEntity.notFound().build();
