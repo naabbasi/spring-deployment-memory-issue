@@ -1,5 +1,13 @@
 package com.example.demo.config;
 
+import com.example.demo.utils.LogUtils;
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.LoggerContext;
 import java.util.Objects;
 
 import org.springframework.context.ApplicationListener;
@@ -26,6 +34,14 @@ public class ApplicationHook implements ApplicationListener<ContextClosedEvent> 
         try {
             ContextLoader contextLoader = new ContextLoader();
             contextLoader.closeWebApplicationContext(Objects.requireNonNull(this.webApplicationContext.getServletContext()));
+
+            LoggerContext loggerContext = LoggerContext.getContext();
+            org.apache.logging.log4j.core.config.Configuration configuration = loggerContext.getConfiguration();
+
+            for (Map.Entry<String, Appender> mapEntry : configuration.getAppenders().entrySet()){
+                System.out.println("Appender name: " + mapEntry.getKey());
+                System.out.println("Appender Status: " + mapEntry.getValue().getState().name());
+            }
         } catch (Exception e) {
             this.logUtils.log("Exception occurred: {}", e.getMessage());
         }

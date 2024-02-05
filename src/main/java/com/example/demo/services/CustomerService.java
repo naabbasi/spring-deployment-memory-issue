@@ -5,6 +5,7 @@ import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.utils.LogUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,12 +18,12 @@ public class CustomerService {
         this.logUtils = logUtils;
     }
 
-    public Iterable<Customer> all() {
+    public List<Customer> all() {
         this.logUtils.log("Fetching all customers");
         return this.customerRepository.findAll();
     }
 
-    public Optional<Customer> getCustomerById(Long customerId) {
+    public Customer getCustomerById(Long customerId) {
         this.logUtils.log("Fetching customer by id: {}", customerId);
         return this.customerRepository.findById(customerId);
     }
