@@ -5,12 +5,15 @@ import com.example.demo.cache.bo.ApplicationPropertiesBo;
 import com.example.demo.config.ApplicationProperties;
 import com.example.demo.services.CustomerService;
 import com.example.demo.utils.LogUtils;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.util.PropertiesUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Map;
@@ -36,6 +39,12 @@ public class DemoApplication extends SpringBootServletInitializer {
             PropertiesUtil properties = PropertiesUtil.getProperties();
             logUtils.log("AsyncLogger.RingBufferSize size is: {}", properties.getStringProperty("AsyncLogger.RingBufferSize"));
             logUtils.log("AsyncLoggerConfig.RingBufferSize size is: {}", properties.getStringProperty("AsyncLoggerConfig.RingBufferSize"));
+
+            LoggerContext loggerContext = LoggerContext.getContext();
+            Configuration configuration = loggerContext.getConfiguration();
+            for (Map.Entry<String, String> propertyEntry : configuration.getProperties().entrySet()) {
+                logUtils.log("Key: {}, Value: {}", propertyEntry.getKey(), propertyEntry.getValue());
+            }
         };
     }
 
@@ -46,7 +55,9 @@ public class DemoApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(DemoApplication.class, args);
+        configurableApplicationContext.registerShutdownHook();
+
     }
 
 }

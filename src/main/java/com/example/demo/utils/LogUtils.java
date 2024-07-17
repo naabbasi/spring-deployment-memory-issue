@@ -16,4 +16,13 @@ public class LogUtils {
 
         logger.info(message);
     }
+
+    /*public void log(String message, Object... params) {
+        if(params != null && params.length > 0) {
+            System.out.printf("%s %s\n", message, Arrays.toString(params));
+            return;
+        }
+
+        System.out.printf("%s \n", message);
+    }*/
 }

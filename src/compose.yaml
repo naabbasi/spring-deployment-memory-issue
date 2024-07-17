@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=memory_test'
+      - 'POSTGRES_PASSWORD=Password1'
+      - 'POSTGRES_USER=nabbasi'
+    volumes:
+      - 'postgres_dev:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+volumes:
+  postgres_dev:

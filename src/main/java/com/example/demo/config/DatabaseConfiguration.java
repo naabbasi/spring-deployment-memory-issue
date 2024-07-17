@@ -20,9 +20,9 @@ public class DatabaseConfiguration {
     @Primary
     DataSource sysDataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-        driverManagerDataSource.setUsername("postgres");
-        driverManagerDataSource.setPassword("p@ssw0rd");
+        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/memory_test");
+        driverManagerDataSource.setUsername("nabbasi");
+        driverManagerDataSource.setPassword("Password1");
         driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
         return driverManagerDataSource;
     }

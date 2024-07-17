@@ -1,25 +1,43 @@
 package com.example.demo.config;
 
 import com.example.demo.utils.LogUtils;
+import io.netty.util.concurrent.FastThreadLocalThread;
+import io.netty.util.internal.InternalThreadLocalMap;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.web.WebLoggerContextUtils;
+import org.springframework.web.context.ContextLoaderListener;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.lang.ref.Reference;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.util.concurrent.TimeUnit;
 
 @WebListener
-public class ApplicationContext implements ServletContextListener {
+public class ApplicationContextListener extends ContextLoaderListener /*implements ServletContextListener*/ {
     private final LogUtils logUtils = new LogUtils();
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        logUtils.log("ApplicationContext contextInitialized called");
-        ServletContextListener.super.contextInitialized(sce);
+        logUtils.log("ApplicationContextListener contextInitialized called");
+        ServletContext servletContext = sce.getServletContext();
+        servletContext.setInitParameter("log4j.stop.timeout", "0L");
+        servletContext.setInitParameter("log4j.stop.timeout.timeunit", "MILLISECONDS");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        logUtils.log("ApplicationContext contextDestroyed called");
-        ServletContextListener.super.contextDestroyed(sce);
-        this.cleanThreadLocals();
+        logUtils.log("ApplicationContextListener contextDestroyed called");
+        InternalThreadLocalMap.remove();
+        InternalThreadLocalMap.destroy();
+        FastThreadLocalThread.willCleanupFastThreadLocals(Thread.currentThread());
+
+        super.contextDestroyed(sce);
+        LoggerContext webLoggerContext = WebLoggerContextUtils.getWebLoggerContext(sce.getServletContext());
+        webLoggerContext.close();
+        webLoggerContext.stop(0L, TimeUnit.MILLISECONDS);
+        //this.cleanThreadLocals();
     }
 
     private void cleanThreadLocals() {

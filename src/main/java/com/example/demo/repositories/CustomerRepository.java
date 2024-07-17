@@ -3,28 +3,24 @@ package com.example.demo.repositories;
 import com.example.demo.entities.Customer;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public class CustomerRepository {
-    @PersistenceContext(unitName = "sysPersistentUnit")
-    private final EntityManager entityManager;
-
-    public CustomerRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+public class CustomerRepository extends GenericRepository {
 
     public List<Customer> findAll() {
-        return this.entityManager.createQuery("from Customer", Customer.class).getResultList();
+        return this.getEntityManager().createQuery("from Customer", Customer.class).getResultList();
     }
 
     public Customer findById(Long customerId) {
-        TypedQuery<Customer> customerTypedQuery = this.entityManager.createQuery("from Customer where gkey = :gkey ", Customer.class);
-        customerTypedQuery.setParameter("gkey", customerId);
-        return customerTypedQuery.getSingleResult();
+        try {
+            TypedQuery<Customer> customerTypedQuery = this.getEntityManager().createQuery("from Customer where gkey = :gkey ", Customer.class);
+            customerTypedQuery.setParameter("gkey", customerId);
+            return customerTypedQuery.getSingleResult();
+        } catch (NoResultException noResultException) {
+            return null;
+        }
     }
 }
