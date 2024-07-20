@@ -16,18 +16,18 @@ import java.util.Map;
 
 @Configuration
 public class DatabaseConfiguration {
-    @Bean
+    @Bean(destroyMethod = "")
     @Primary
     DataSource sysDataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/memory_test");
+        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/memory_leak");
         driverManagerDataSource.setUsername("nabbasi");
         driverManagerDataSource.setPassword("Password1");
         driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
         return driverManagerDataSource;
     }
 
-    @Bean(name = "sysEntityManagerFactory")
+    @Bean(name = "sysEntityManagerFactory", destroyMethod = "")
     @Primary
     LocalContainerEntityManagerFactoryBean sysLocalContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder entityManagerFactoryBuilder) {
         Map<String, Object> propertiesMap = new HashMap<>();
@@ -39,7 +39,7 @@ public class DatabaseConfiguration {
                 .build();
     }
 
-    @Bean(name = "sysTransactionManager")
+    @Bean(name = "sysTransactionManager", destroyMethod = "")
     @Primary
     PlatformTransactionManager platformTransactionManager(LocalContainerEntityManagerFactoryBean sysLocalContainerEntityManagerFactoryBean) {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
@@ -47,7 +47,7 @@ public class DatabaseConfiguration {
         return jpaTransactionManager;
     }
 
-    @Bean
+    @Bean(destroyMethod = "")
     PersistenceExceptionTranslationPostProcessor exceptionTranslationPostProcessor() {
         return new PersistenceExceptionTranslationPostProcessor();
     }

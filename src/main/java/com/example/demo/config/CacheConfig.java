@@ -1,19 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.utils.LogUtils;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-
-@Configuration
+/*@Configuration
 @EnableCaching
 public class CacheConfig implements DisposableBean {
     private final LogUtils logUtils;
@@ -24,7 +11,7 @@ public class CacheConfig implements DisposableBean {
         this.applicationProperties = applicationProperties;
     }
 
-    /*@Bean("redisTemplate")
+    *//*@Bean("redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(connectionFactory);
@@ -34,7 +21,7 @@ public class CacheConfig implements DisposableBean {
         redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(Object.class));
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
-    }*/
+    }*//*
 
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
@@ -61,8 +48,8 @@ public class CacheConfig implements DisposableBean {
     @Override
     public void destroy() throws Exception {
         this.logUtils.log("CacheConfig->destroy called");
-        /*RedisConnection redisConnection = this.redisConnectionFactory.getConnection();
+        *//*RedisConnection redisConnection = this.redisConnectionFactory.getConnection();
         RedisConnectionUtils.releaseConnection(redisConnection, this.redisConnectionFactory);
-        FastThreadLocal.removeAll();*/
+        FastThreadLocal.removeAll();*//*
     }
-}
+}*/

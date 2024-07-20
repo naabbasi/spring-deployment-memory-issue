@@ -2,12 +2,20 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      - 'POSTGRES_DB=memory_test'
+      - 'POSTGRES_DB=memory_leak'
       - 'POSTGRES_PASSWORD=Password1'
       - 'POSTGRES_USER=nabbasi'
     volumes:
       - 'postgres_dev:/var/lib/postgresql/data'
     ports:
       - '5432:5432'
+
+  redis:
+    image: "redis/redis-stack:latest"
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    environment:
+      - REDIS_REPLICATION_MODE=master
 volumes:
   postgres_dev:

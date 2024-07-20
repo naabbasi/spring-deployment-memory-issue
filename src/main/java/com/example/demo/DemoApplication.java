@@ -13,7 +13,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Map;
@@ -37,8 +36,15 @@ public class DemoApplication extends SpringBootServletInitializer {
                 logUtils.log("Key: {}, Value: {}", applicationPropertyEntry.getKey(), applicationPropertyEntry.getValue());
             }
             PropertiesUtil properties = PropertiesUtil.getProperties();
-            logUtils.log("AsyncLogger.RingBufferSize size is: {}", properties.getStringProperty("AsyncLogger.RingBufferSize"));
-            logUtils.log("AsyncLoggerConfig.RingBufferSize size is: {}", properties.getStringProperty("AsyncLoggerConfig.RingBufferSize"));
+            logUtils.log("AsyncLogger.RingBufferSize size is: {}", properties.getStringProperty("log4j2.asyncLoggerRingBufferSize"));
+            logUtils.log("AsyncLoggerConfig.RingBufferSize size is: {}", properties.getStringProperty("log4j2.asyncLoggerConfigRingBufferSize"));
+            logUtils.log("log4j2.disable.jmx is: {}", properties.getStringProperty("log4j2.disable.jmx"));
+            logUtils.log("log4j2.enable.threadlocals is: {}", properties.getStringProperty("log4j2.enable.threadlocals"));
+            logUtils.log("log4j2.garbagefree.threadContextMap is: {}", properties.getStringProperty("log4j2.garbagefree.threadContextMap"));
+            logUtils.log("log4j2.shutdownHookEnabled is: {}", properties.getStringProperty("log4j2.shutdownHookEnabled"));
+
+
+
 
             LoggerContext loggerContext = LoggerContext.getContext();
             Configuration configuration = loggerContext.getConfiguration();
@@ -55,9 +61,7 @@ public class DemoApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(DemoApplication.class, args);
-        configurableApplicationContext.registerShutdownHook();
-
+        SpringApplication.run(DemoApplication.class, args);
     }
 
 }
