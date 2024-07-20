@@ -57,6 +57,7 @@ public class DemoApplication extends SpringBootServletInitializer {
             final int threads = 1000000;
             ExecutorService executorService = Executors.newCachedThreadPool();
             List<Callable<String>> futures = new ArrayList<>();
+            long start = System.currentTimeMillis();
             for(int i = 0 ; i < threads ; i++) {
                 int finalI = i;
                 final Callable<String> futureTask = new Callable<String>() {
@@ -72,6 +73,8 @@ public class DemoApplication extends SpringBootServletInitializer {
             executorService.invokeAll(futures);
             executorService.shutdown();
             MDC.clear();
+            long end = System.currentTimeMillis();
+            logUtils.log("Took sec {}, ms {}", TimeUnit.MILLISECONDS.toSeconds((end - start)), end - start);
         };
     }
 
