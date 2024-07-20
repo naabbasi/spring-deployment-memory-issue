@@ -16,10 +16,10 @@
             immediateFlush="false" append="false"
             filePattern="${archive}/${logfile-name}.%d{yyyy-MM-dd-HH}.gz">
             <PatternLayout>
-                <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} {lvl:%level} {tid:%threadId} {uid:%X{userId}} {cls:%class} {mtd:%method} %throwable{10} %n</pattern>
+                <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} {lvl:%level} {tid:%threadId} {uid:%X{userId}} {cls:%class} {mtd:%method} {msg: %msg} %throwable{10} %n</pattern>
             </PatternLayout>
             <Policies>
-                <SizeBasedTriggeringPolicy size="100 KB"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
             </Policies>
         </RollingFile>
     </Appenders>
