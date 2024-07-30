@@ -1,4 +1,14 @@
 services:
+  ibm_websphere:
+    image: 'ibmcom/websphere-traditional:latest'
+    ports:
+      - "9043:9043"
+      - "9443:9443"
+      - "7777:7777"
+      - "1099:1099"
+    volumes:
+      - 'ibm_websphere_volume:/opt'
+
   postgres:
     image: 'postgres:latest'
     environment:
@@ -17,5 +27,12 @@ services:
       - "8001:8001"
     environment:
       - REDIS_REPLICATION_MODE=master
+
 volumes:
   postgres_dev:
+  ibm_websphere_volume:
+
+networks:
+  ibm_was_network:
+    name: ibm_was_network
+    external: true

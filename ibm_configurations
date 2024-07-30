@@ -1,0 +1,19 @@
+-Djavax.management.builder.initial= -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.host=172.17.0.2 -Dcom.sun.management.jmxremote.port=1099
+
+com.ibm.ws.runtime.component.MemoryLeakConfig.detectAppCLLeaks                                  Default	false
+com.ibm.ws.runtime.component.MemoryLeakConfig.clearAppCLLeaks                                   Default	false
+com.ibm.ws.runtime.component.MemoryLeakConfig.preventJreMemoryLeaks                             Default	true
+com.ibm.ws.runtime.component.MemoryLeakConfig.generateHeapDumps                                 Default	true
+com.ibm.ws.runtime.component.MemoryLeakConfig.leakSweeperDelay                                  Default	10000 (ms)
+com.ibm.ws.runtime.component.MemoryLeakConfig.monitorSystemApps                                 Default	false
+com.ibm.ws.runtime.component.MemoryLeakConfig.clearReferencesInterruptThreads                   Default	true
+com.ibm.ws.runtime.component.MemoryLeakConfig.clearReferencesHttpClientKeepAliveThread          Default	true
+com.ibm.ws.runtime.component.MemoryLeakConfig.clearReferencesStopTimerThreads                   Default	false
+com.ibm.ws.runtime.component.MemoryLeakConfig.jvmThreadGroupNames                               Default	system__RMI Runtime
+com.ibm.ws.runtime.component.MemoryLeakConfig.clearReferencesStatic                             Default	false
+com.ibm.ws.runtime.component.MemoryLeakConfig.filterPrefixes                                    Default	java javax com.ibm org sun com.sun. The list is delineated by spaces.
+com.ibm.ws.runtime.component.MemoryLeakConfig.checkThreadLocalLeaks                             Default	false
+com.ibm.ws.runtime.component.MemoryLeakConfig.clearReferencesThreadLocal                        Default	false
+com.ibm.ws.runtime.component.MemoryLeakConfig.renewThreadPoolNames                              Default	"WebContainer" list is delineated by spaces.
+com.ibm.ws.runtime.component.MemoryLeakConfig.threadPoolRenewalDelayFactor                      Default	10. For the web container threadpool, the renewal delay is (10 * 60000 ms) 6 minutes.
+com.ibm.ws.util.ThreadPool.DEFAULT_THREAD_RENEWAL_DELAY                                         Default	1000 (value is in ms). If the value is negative, threads are never renewed.
