@@ -8,7 +8,6 @@ import com.example.demo.utils.LogUtils;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.util.PropertiesUtil;
-import org.slf4j.MDC;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,10 +15,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
 
 @SpringBootApplication
 //@ComponentScan(basePackages = {"com.example.demo"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {LogUtils.class}))
@@ -28,7 +24,6 @@ public class DemoApplication extends SpringBootServletInitializer {
     CommandLineRunner init(ApplicationProperties applicationProperties, LogUtils logUtils,
                            CustomerService customerService, ApplicationPropertiesCache applicationPropertiesCache) {
         return args -> {
-            MDC.put("userId", "Noman Ali Abbasi");
             logUtils.log("Application Name: {}", applicationProperties.getName());
             logUtils.log("Application Version: {}", applicationProperties.getVersion());
             logUtils.log("Application Classification: {}", applicationProperties.getAbsherClassification());
@@ -53,28 +48,6 @@ public class DemoApplication extends SpringBootServletInitializer {
             for (Map.Entry<String, String> propertyEntry : configuration.getProperties().entrySet()) {
                 logUtils.log("Key: {}, Value: {}", propertyEntry.getKey(), propertyEntry.getValue());
             }
-
-            final int threads = 1000000;
-            ExecutorService executorService = Executors.newCachedThreadPool();
-            List<Callable<String>> futures = new ArrayList<>();
-            long start = System.currentTimeMillis();
-            for(int i = 0 ; i < threads ; i++) {
-                int finalI = i;
-                final Callable<String> futureTask = new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        logUtils.log("Message " + finalI);
-                        return "Message " + finalI;
-                    }
-                };
-                futures.add(futureTask);
-            }
-
-            executorService.invokeAll(futures);
-            executorService.shutdown();
-            MDC.clear();
-            long end = System.currentTimeMillis();
-            logUtils.log("Took sec {}, ms {}", TimeUnit.MILLISECONDS.toSeconds((end - start)), end - start);
         };
     }
 

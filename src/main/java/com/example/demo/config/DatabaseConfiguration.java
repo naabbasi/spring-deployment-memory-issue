@@ -20,7 +20,7 @@ public class DatabaseConfiguration {
     @Primary
     DataSource sysDataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/memory_leak");
+        driverManagerDataSource.setUrl("jdbc:postgresql://postgres:5432/memory_leak");
         driverManagerDataSource.setUsername("nabbasi");
         driverManagerDataSource.setPassword("Password1");
         driverManagerDataSource.setDriverClassName("org.postgresql.Driver");

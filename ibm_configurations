@@ -17,3 +17,7 @@ com.ibm.ws.runtime.component.MemoryLeakConfig.clearReferencesThreadLocal        
 com.ibm.ws.runtime.component.MemoryLeakConfig.renewThreadPoolNames                              Default	"WebContainer" list is delineated by spaces.
 com.ibm.ws.runtime.component.MemoryLeakConfig.threadPoolRenewalDelayFactor                      Default	10. For the web container threadpool, the renewal delay is (10 * 60000 ms) 6 minutes.
 com.ibm.ws.util.ThreadPool.DEFAULT_THREAD_RENEWAL_DELAY                                         Default	1000 (value is in ms). If the value is negative, threads are never renewed.
+
+docker run -itd --name mydb2 --privileged=true -p 50000:50000 -e LICENSE=accept -e DB2INST1_PASSWORD=Password -e DBNAME=testdb -v ibm_was_postgres_redis_ibm_db2:/database ibmcom/db2
+
+default username: db2inst1

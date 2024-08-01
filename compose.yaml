@@ -1,6 +1,7 @@
 services:
   ibm_websphere:
     image: 'ibmcom/websphere-traditional:latest'
+    #hostname: 'ibm_websphere'
     ports:
       - "9043:9043"
       - "9443:9443"
@@ -9,8 +10,22 @@ services:
     volumes:
       - 'ibm_websphere_volume:/opt'
 
+#  ibm_db2:
+#    image: 'ibmcom/db2:latest'
+#    hostname: 'ibm_db2'
+#    privileged: true
+#    environment:
+#      - 'DBNAME=mydb2'
+#      - 'DB2INST1_PASSWORD=Password1'
+#      - 'LICENSE=accept'
+#    ports:
+#      - '50000:50000'
+#    volumes:
+#      - 'ibm_db2_volume:/database'
+
   postgres:
     image: 'postgres:latest'
+    hostname: 'postgres'
     environment:
       - 'POSTGRES_DB=memory_leak'
       - 'POSTGRES_PASSWORD=Password1'
@@ -22,15 +37,17 @@ services:
 
   redis:
     image: "redis/redis-stack:latest"
+    hostname: 'redis_stack'
     ports:
       - "6379:6379"
       - "8001:8001"
     environment:
-      - REDIS_REPLICATION_MODE=master
+      - 'REDIS_REPLICATION_MODE=master'
 
 volumes:
   postgres_dev:
   ibm_websphere_volume:
+  ibm_db2_volume:
 
 networks:
   ibm_was_network:
