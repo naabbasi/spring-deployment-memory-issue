@@ -45,11 +45,11 @@ services:
       - 'REDIS_REPLICATION_MODE=master'
 
 volumes:
-  postgres_dev:
   ibm_websphere_volume:
+  postgres_dev:
   ibm_db2_volume:
 
-networks:
-  ibm_was_network:
-    name: ibm_was_network
-    external: true
+#networks:
+#  ibm_was_network:
+#    name: ibm_was_network
+#    external: true
