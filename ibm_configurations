@@ -1,4 +1,12 @@
--Djavax.management.builder.initial= -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.host=172.17.0.2 -Dcom.sun.management.jmxremote.port=1099
+-Djavax.management.builder.initial= -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.host=10.5.0.5 -Dcom.sun.management.jmxremote.port=1099
+
+#To check the deployed apps URL info
+/opt/IBM/WebSphere/AppServer/profiles/AppSrv01/config/cells/DefaultCell01/nodes/DefaultNode01/serverinddex.sml
+https://localhost:9443/vanila-spring-boot-2_7_16/api/log/5
+http://localhost:9080/vanila-spring-boot-2_7_16/api/log/5
+
+#Stop docker container, get container id docker ps -a
+docker commit -m "configured websphere without jmx" container_id ibmcom/websphere-configured-no-jmx:0.1
 
 com.ibm.ws.runtime.component.MemoryLeakConfig.detectAppCLLeaks                                  Default	false
 com.ibm.ws.runtime.component.MemoryLeakConfig.clearAppCLLeaks                                   Default	false
