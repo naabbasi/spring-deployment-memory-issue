@@ -1,6 +1,6 @@
 services:
   ibm_websphere:
-    image: 'ibmcom/websphere-configured-no-jmx:0.1'
+    image: 'ibmcom/websphere-traditional:latest'
     #hostname: 'ibm_websphere'
     ports:
       - "9043:9043"
