@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+    <Properties>
+        <Property name="logpath-location">./app/spring-boot-2-7-16-log4j-web-sync/logs</Property>
+        <Property name="logfile-name">db_service.log</Property>
+        <Property name="archive">${logpath-location}/archive/dbservice</Property>
+        <Property name="interval">10</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="RollingFileAppender" fileName="${logpath-location}/${logfile-name}"
+            immediateFlush="false" append="false"
+            filePattern="${archive}/${logfile-name}.%d{yyyy-MM-dd-HH}.gz">
+            <PatternLayout>
+                <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} {lvl:%level} {tid:%threadId} {uid:%X{userId}} {cls:%class} {mtd:%method} {msg: %msg} %throwable{10} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.example" level="DEBUG" additivity="false" includeLocation="true">
+            <AppenderRef ref="RollingFileAppender"/>
+        </Logger>
+
+        <Logger name="org.hibernate" level="info" additivity="false" includeLocation="true">
+            <AppenderRef ref="RollingFileAppender"/>
+        </Logger>
+
+        <Logger name="org.springframework" level="info" additivity="false" includeLocation="true">
+            <AppenderRef ref="RollingFileAppender"/>
+        </Logger>
+
+        <Root level="trace" includeLocation="true">
+            <AppenderRef ref="RollingFileAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
