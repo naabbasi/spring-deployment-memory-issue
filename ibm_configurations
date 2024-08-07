@@ -1,3 +1,7 @@
+#server cleanup
+#copy password cat /tmp/PASSWORD
+cd /opt/IBM/WebSphere/AppServer/profiles/AppSrv01 && ./bin/stopServer.sh server1 && ./bin/clearClassCache.sh && ./bin/osgiCfgInit.sh && rm -vfr temp/* wstemp/* logs/* tranlog/*
+
 -Djavax.management.builder.initial= -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.host=10.5.0.5 -Dcom.sun.management.jmxremote.port=1099
 
 #To check the deployed apps URL info

@@ -27,19 +27,34 @@ public class ApplicationLifeCycleEndpoint {
         this.webApplicationContext = webApplicationContext;
     }
 
-    @GetMapping(path = "/log/{numbers}")
-    public String logMessage(@PathVariable("numbers") Integer numbers) throws InterruptedException {
+    @GetMapping(path = "/log/sequential/{numbers}")
+    public String logSequentialMessages(@PathVariable("numbers") Integer numbers) {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < numbers; i++) {
+            logUtils.log("Message " + i);
+        }
+
+        long end = System.currentTimeMillis();
+        String message = String.format("Took sec %d, ms %d", TimeUnit.MILLISECONDS.toSeconds((end - start)), end - start);
+        logUtils.log(message);
+        return message;
+    }
+
+    @GetMapping(path = "/log/parallel/{numbers}/{logEvent}")
+    public String logParallelMessages(@PathVariable("numbers") Integer numbers, @PathVariable("logEvent") String logEvent) throws InterruptedException {
 
         long start = System.currentTimeMillis();
         final int threads = numbers;
-        ExecutorService executorService = Executors.newCachedThreadPool();
         List<Callable<String>> futures = new ArrayList<>();
-        for(int i = 0 ; i < threads ; i++) {
+        final ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i < threads; i++) {
             int finalI = i;
             final Callable<String> futureTask = new Callable<String>() {
                 @Override
                 public String call() throws Exception {
-                    logUtils.log("Message " + finalI);
+                    if ("Y".equalsIgnoreCase(logEvent)) {
+                        logUtils.log("Message " + finalI);
+                    }
                     return "Message " + finalI;
                 }
             };
@@ -48,8 +63,9 @@ public class ApplicationLifeCycleEndpoint {
 
         executorService.invokeAll(futures);
         executorService.shutdown();
+
         long end = System.currentTimeMillis();
-        String message = String.format("Took sec %d, ms %d", TimeUnit.MILLISECONDS.toSeconds((end - start)) , end - start);
+        String message = String.format("Took sec %d, ms %d", TimeUnit.MILLISECONDS.toSeconds((end - start)), end - start);
         logUtils.log(message);
 
         return message;
