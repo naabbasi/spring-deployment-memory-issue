@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info">
     <Properties>
-        <Property name="logpath-location">./app/spring-boot-2-7-16-log4j-web-sync/logs</Property>
+        <Property name="logpath-location">./app/spring-boot-2-7-16-log4j-web-sync-redis-lettuce/logs</Property>
         <Property name="logfile-name">db_service.log</Property>
         <Property name="archive">${logpath-location}/archive/dbservice</Property>
         <Property name="interval">10</Property>

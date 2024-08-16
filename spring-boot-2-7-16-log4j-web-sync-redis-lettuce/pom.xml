@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>spring-boot-2-7-16-log4j-web-sync</artifactId>
+    <artifactId>spring-boot-2-7-16-log4j-web-sync-redis-lettuce</artifactId>
     <version>0.0.5</version>
-    <name>spring-boot-2-7-16-log4j-web-sync</name>
+    <name>spring-boot-2-7-16-log4j-web-sync-redis-lettuce</name>
     <description>Spring Boot application deployment cause high memory consumption</description>
     <packaging>war</packaging>
     <properties>

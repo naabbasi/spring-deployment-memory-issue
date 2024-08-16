@@ -37,3 +37,10 @@ cd spring-boot-2-7-16-log4j-web-sync
 mvn clean package
 cd target && rm -f spring-boot-2-7-16-log4j-web-sync-0.0.5.war
 mv spring-boot-2-7-16-log4j-web-sync-0.0.5.war.original spring-boot-2-7-16-log4j-web-sync-0.0.5.war
+
+cd $current_dir
+
+cd spring-boot-2-7-16-log4j-web-sync-redis-lettuce
+mvn clean package
+cd target && rm -f spring-boot-2-7-16-log4j-web-sync-redis-lettuce-0.0.5.war
+mv spring-boot-2-7-16-log4j-web-sync-redis-lettuce-0.0.5.war.original spring-boot-2-7-16-log4j-web-sync-redis-lettuce-0.0.5.war
