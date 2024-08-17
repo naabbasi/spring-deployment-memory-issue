@@ -22,9 +22,6 @@ public class ApplicationLifeCycleEvent implements ApplicationListener<ContextClo
 
     @Override
     public void onApplicationEvent(ContextClosedEvent event) {
-        ContextLoader contextLoaderListener = new ContextLoader(Objects.requireNonNull(this.webApplicationContext));
-        contextLoaderListener.closeWebApplicationContext(Objects.requireNonNull(this.webApplicationContext.getServletContext()));
-
         ServletContext servletContext = this.webApplicationContext.getServletContext();
         Log4jWebSupport log4jWebSupport = WebLoggerContextUtils.getWebLifeCycle(servletContext);
         if(log4jWebSupport != null) {

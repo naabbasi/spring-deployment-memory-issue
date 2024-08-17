@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.cache.ApplicationPropertiesCache;
 import com.example.demo.config.ApplicationProperties;
 import com.example.demo.utils.LogUtils;
 import org.springframework.boot.CommandLineRunner;
@@ -11,9 +12,9 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 //@ComponentScan(basePackages = {"com.example.demo"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {LogUtils.class}))
-public class SpringBoot2716Log4jSync extends SpringBootServletInitializer {
+public class SpringBoot2716Log4jSyncRedisLettuce extends SpringBootServletInitializer {
     @Bean
-    CommandLineRunner init(ApplicationProperties applicationProperties, LogUtils logUtils) {
+    CommandLineRunner init(ApplicationProperties applicationProperties, LogUtils logUtils, ApplicationPropertiesCache applicationPropertiesCache) {
         return args -> {
             logUtils.log("Application Name: {}", applicationProperties.getName());
             logUtils.log("Application Version: {}", applicationProperties.getVersion());
@@ -24,11 +25,11 @@ public class SpringBoot2716Log4jSync extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
         super.setRegisterErrorPageFilter(false);
-        return springApplicationBuilder.sources(SpringBoot2716Log4jSync.class);//.web(WebApplicationType.NONE);
+        return springApplicationBuilder.sources(SpringBoot2716Log4jSyncRedisLettuce.class);//.web(WebApplicationType.NONE);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBoot2716Log4jSync.class, args);
+        SpringApplication.run(SpringBoot2716Log4jSyncRedisLettuce.class, args);
     }
 
 }

@@ -5,6 +5,9 @@ import org.apache.logging.log4j.web.Log4jWebSupport;
 import org.apache.logging.log4j.web.WebLoggerContextUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
@@ -16,15 +19,12 @@ import java.util.Objects;
 public class ApplicationLifeCycleEvent implements ApplicationListener<ContextClosedEvent> {
     private final WebApplicationContext webApplicationContext;
 
-    public ApplicationLifeCycleEvent(LogUtils logUtils, WebApplicationContext webApplicationContext) {
+    public ApplicationLifeCycleEvent(LogUtils logUtils, WebApplicationContext webApplicationContext, LettuceConnectionFactory lettuceConnectionFactory) {
         this.webApplicationContext = webApplicationContext;
     }
 
     @Override
     public void onApplicationEvent(ContextClosedEvent event) {
-        ContextLoader contextLoaderListener = new ContextLoader(Objects.requireNonNull(this.webApplicationContext));
-        contextLoaderListener.closeWebApplicationContext(Objects.requireNonNull(this.webApplicationContext.getServletContext()));
-
         ServletContext servletContext = this.webApplicationContext.getServletContext();
         Log4jWebSupport log4jWebSupport = WebLoggerContextUtils.getWebLifeCycle(servletContext);
         if(log4jWebSupport != null) {

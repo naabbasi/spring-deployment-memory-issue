@@ -1,5 +1,7 @@
 package com.example.demo.endpoints;
 
+import com.example.demo.cache.ApplicationPropertiesCache;
+import com.example.demo.cache.bo.ApplicationPropertiesBo;
 import com.example.demo.utils.LogUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -20,11 +23,11 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping(path = "/api")
 public class ApplicationLifeCycleEndpoint {
     private final LogUtils logUtils;
-    private WebApplicationContext webApplicationContext;
+    private ApplicationPropertiesCache applicationPropertiesCache;
 
-    public ApplicationLifeCycleEndpoint(LogUtils logUtils, WebApplicationContext webApplicationContext) {
+    public ApplicationLifeCycleEndpoint(LogUtils logUtils, ApplicationPropertiesCache applicationPropertiesCache) {
         this.logUtils = logUtils;
-        this.webApplicationContext = webApplicationContext;
+        this.applicationPropertiesCache = applicationPropertiesCache;
     }
 
     @GetMapping(path = "/log/sequential/{numbers}")
@@ -71,11 +74,16 @@ public class ApplicationLifeCycleEndpoint {
         return message;
     }
 
-    @GetMapping(path = "/destroy")
-    public String destroy() {
-        logUtils.log("User requested to destroy the context");
-        ContextLoader contextLoader = new ContextLoader(this.webApplicationContext);
-        contextLoader.closeWebApplicationContext(Objects.requireNonNull(this.webApplicationContext.getServletContext()));
-        return "SUCCESS";
+    @GetMapping(path = "/cache")
+    public Map<String, ApplicationPropertiesBo> cache() {
+        logUtils.log("Get application properties from redis cache");
+        Map<String, ApplicationPropertiesBo> applicationPropertiesBoCacheMap = this.applicationPropertiesCache.applicationPropertiesCache();
+
+        for(Map.Entry<String, ApplicationPropertiesBo> applicationPropertiesBoMapEntry : applicationPropertiesBoCacheMap.entrySet()) {
+            this.logUtils.log("Key: {}", applicationPropertiesBoMapEntry.getKey());
+            this.logUtils.log("Value: {}", applicationPropertiesBoMapEntry.getValue());
+        }
+
+        return applicationPropertiesBoCacheMap;
     }
 }
